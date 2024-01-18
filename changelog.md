@@ -1,5 +1,5 @@
 1.0.0
-- Firtst Launch, simple template generator
+- First Launch, simple template generator
 
 1.1.0
 - Replaced chalk with colors and removed boxes
