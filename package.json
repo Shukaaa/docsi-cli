@@ -1,6 +1,6 @@
 {
   "name": "@docsi/cli",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "CLI Tool for installing the Docsi template",
   "bin": {
     "docsi": "./docsi.js"

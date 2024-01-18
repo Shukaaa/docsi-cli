@@ -7,3 +7,7 @@
 - Added new command "docsi docs" to see the link to the docs
 - Check if the user wants to run npm install after creating a new project
 - Updated README.md
+
+1.2.0
+- Added support for themes provided by the template
+- throw error when cli version is too old for the template to work properly

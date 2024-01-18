@@ -17,17 +17,14 @@ const newCommandSetup = (name) => {
     console.log(`Creating a new Docs template '${name}'...`.blue);
 
     fs.mkdirSync(name);
-    download(defaultRepo, name, (err) => {
+    download(defaultRepo, name, async (err) => {
         if (err) {
             console.error('Error:'.red, err);
         } else {
-            const packageJson = require(`${process.cwd()}/${name}/package.json`);
-            packageJson.name = name;
-            fs.writeFileSync(`${process.cwd()}/${name}/package.json`, JSON.stringify(packageJson, null, 2));
-
-            const packageLockJson = require(`${process.cwd()}/${name}/package-lock.json`);
-            packageLockJson.name = name;
-            fs.writeFileSync(`${process.cwd()}/${name}/package-lock.json`, JSON.stringify(packageLockJson, null, 2));
+            checkPreferredCLIVersion(name)
+            renamePackageJsonName(name);
+            const template = (await chooseTemplate(name)).template;
+            deleteNotChosenTemplates(name, template);
 
             console.log(`Template '${name}' copied successfully.`.green);
 
@@ -48,6 +45,62 @@ const newCommandSetup = (name) => {
             });
         }
     });
+}
+
+const checkPreferredCLIVersion = (name) => {
+    let minimumRequiredCliVersionJson = require(`${process.cwd()}/${name}/minimum-required-cli-version.json`).version;
+
+    if (minimumRequiredCliVersionJson > getCurrentCLIVersion()) {
+        console.log(`You are using an older version of the Docsi CLI. It is important to update so that the template works correctly! The minimum required version is ${minimumRequiredCliVersionJson}.`.red);
+        fs.rmdirSync(`${process.cwd()}/${name}`, { recursive: true });
+        process.exit(1);
+    } else {
+        fs.unlinkSync(`${process.cwd()}/${name}/minimum-required-cli-version.json`);
+    }
+}
+
+const getCurrentCLIVersion = () => {
+    let packageJson = require(`../../package.json`);
+    return packageJson.version;
+}
+
+const chooseTemplate = (name) => {
+    return inquirer.prompt([
+        {
+            type: 'list',
+            name: 'template',
+            message: 'Choose a template:',
+            choices: getThemes(name)
+        }
+    ])
+}
+
+const deleteNotChosenTemplates = (name, template) => {
+    const themes = getThemes(name);
+
+    themes.forEach((theme) => {
+        if (theme !== template) {
+            fs.unlinkSync(`${process.cwd()}/${name}/src/css/themes/docsi/${theme}.css`);
+            fs.unlinkSync(`${process.cwd()}/${name}/src/css/themes/highlight/${theme}.css`);
+        }
+    });
+}
+
+const getThemes = (name) => {
+    return fs.readdirSync(`${process.cwd()}/${name}/src/css/themes/docsi`)
+        .map((theme) => {
+            return theme.replace('.css', '');
+        });
+}
+
+const renamePackageJsonName = (name) => {
+    const packageJson = require(`${process.cwd()}/${name}/package.json`);
+    packageJson.name = name;
+    fs.writeFileSync(`${process.cwd()}/${name}/package.json`, JSON.stringify(packageJson, null, 2));
+
+    const packageLockJson = require(`${process.cwd()}/${name}/package-lock.json`);
+    packageLockJson.name = name;
+    fs.writeFileSync(`${process.cwd()}/${name}/package-lock.json`, JSON.stringify(packageLockJson, null, 2));
 }
 
 const installPackages = (name) => {
