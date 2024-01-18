@@ -1,7 +1,5 @@
 # Docsi Docs
 
-> Welcome to the Dcosi Demo! 🎉🎉🎉
-
 ## What is Docsi?
 
 - 📄 Docsi is a static site generator for documentation. <br/>
