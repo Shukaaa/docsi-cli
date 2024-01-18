@@ -1,6 +1,6 @@
 {
   "name": "@docsi/cli",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "CLI Tool for installing the Docsi template",
   "bin": {
     "docsi": "./docsi.js"
@@ -12,6 +12,7 @@
     "cli",
     "tool",
     "template",
+    "template-generator",
     "generator",
     "generator-cli",
     "markdown",
@@ -27,11 +28,11 @@
   },
   "homepage": "https://github.com/Shukaaa/docsi-cli#readme",
   "author": "Shukaaa",
-  "license":"MIT",
+  "license": "MIT",
   "dependencies": {
-    "boxen": "^7.1.1",
-    "chalk": "^5.3.0",
+    "colors": "^1.4.0",
     "commander": "^11.0.0",
-    "download-git-repo": "^3.0.2"
+    "download-git-repo": "^3.0.2",
+    "inquirer": "^8.0.0"
   }
 }
