@@ -11,6 +11,9 @@
     "Docsi CLI",
     "cli",
     "tool",
+    "documentation",
+    "documentation-tool",
+    "documentation-generator",
     "template",
     "template-generator",
     "generator",
@@ -26,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/Shukaaa/docsi-cli/issues"
   },
-  "homepage": "https://github.com/Shukaaa/docsi-cli#readme",
+  "homepage": "https://shuka.rip/projects/docsi/",
   "author": "Shukaaa",
   "license": "MIT",
   "dependencies": {
