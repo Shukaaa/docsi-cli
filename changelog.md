@@ -10,4 +10,7 @@
 
 1.2.0
 - Added support for themes provided by the template
-- throw error when cli version is too old for the template to work properly
+- Throw error when CLI version is too old for the template to work properly
+
+1.2.1
+- Fixed wrong version output in the CLI
