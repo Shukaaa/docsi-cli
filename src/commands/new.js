@@ -87,10 +87,11 @@ const deleteNotChosenTemplates = (name, template) => {
 }
 
 const getThemes = (name) => {
-    return fs.readdirSync(`${process.cwd()}/${name}/src/css/themes/docsi`)
-        .map((theme) => {
-            return theme.replace('.css', '');
-        });
+    const themeFiles = fs.readdirSync(`${process.cwd()}/${name}/src/css/themes/docsi`);
+    return themeFiles.map((theme) => {
+        theme = theme.replace('.css', '')
+        return theme.charAt(0).toUpperCase() + theme.slice(1);
+    })
 }
 
 const renamePackageJsonName = (name) => {

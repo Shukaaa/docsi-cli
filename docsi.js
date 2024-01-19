@@ -2,10 +2,11 @@
 const program = require('commander');
 const {newCommand} = require('./src/commands/new');
 const docsCommand = require('./src/commands/docs');
+const packageJson = require('./package.json');
 const colors = require('colors');
 colors.enable();
 
-const versionText = `Your Docsi CLI Version is: ${'1.0.0'.bgBlue}`;
+const versionText = `Your Docsi CLI Version is: ${packageJson.version.bgBlue}`;
 
 program
     .version(versionText)
